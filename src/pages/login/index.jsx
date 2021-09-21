@@ -15,14 +15,6 @@ export default class Login extends Component {
 
     aa = ()=>{
         console.log(this.formNode);
-        let p = new Promise((resolve, reject)=>{
-            setTimeout(() => {
-                console.log("执行完成promise");
-                resolve("resolve")
-            }, 2000);
-        
-        })
-        console.log(2);
     }
 
     validatePwd = (_, value)=>{
