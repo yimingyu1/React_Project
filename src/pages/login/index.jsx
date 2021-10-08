@@ -1,21 +1,25 @@
 import React, { Component } from 'react'
 import './login.less'
 import logo from './images/logo.png'
-import { Form, Input, Button, Checkbox } from 'antd';
+import { Form, Input, Button, Checkbox, message } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
+import {reqLogin} from '../../api'
 
 /**
  * 登录的路由组件
  */
 
 export default class Login extends Component {
-    onFinish = (values) => {
+    onFinish = async (values) => {
         console.log('Received values of form: ', values);
-    };
+        const response = await reqLogin(values.username, values.password)
+        if (response.success === true){
+            console.log(1);
+        } else {
+            message.error(response.errMessage)
+        }
 
-    aa = ()=>{
-        console.log(this.formNode);
-    }
+    };
 
     validatePwd = (_, value)=>{
         const regPwd = /^(\w)+$/
@@ -63,6 +67,7 @@ export default class Login extends Component {
                         </Form.Item>
                         <Form.Item
                             name="password"
+                            validateFirst="true"
                             rules={[
                                 { required: true, whitespace: true, message: '请输入密码' },
                                 {validator: this.validatePwd}
@@ -91,7 +96,7 @@ export default class Login extends Component {
                         </Form.Item>
                     </Form>
                 </div>
-                <button onClick={this.aa}>+</button>
+    
             </div>
             
         )

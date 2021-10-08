@@ -6,7 +6,14 @@ import Login from './pages/login'
  * 定义根组件
  */
 export default class App extends Component {
+
+    constructor(props){
+        super(props)
+        this.aaa = 11
+    }
+    
     render() {
+        console.log('app', this);
         return (
                 <BrowserRouter>
                     <Switch>
