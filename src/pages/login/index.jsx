@@ -1,16 +1,32 @@
 import React, { Component } from 'react'
 import './login.less'
 import logo from './images/logo.png'
-import { Form, Input, Button, Checkbox } from 'antd';
+import { Form, Input, Button, Checkbox, message } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
+import {reqLogin} from '../../api'
+import memaryUser from '../../utils/memaryUtil'
+import storeage from '../../utils/storageUtils'
+import { Redirect } from 'react-router';
 
 /**
  * 登录的路由组件
  */
 
 export default class Login extends Component {
-    onFinish = (values) => {
+    onFinish =async (values) => {
         console.log('Received values of form: ', values);
+        const response = await reqLogin(values.username, values.password)
+        console.log(response);
+        console.log(this);
+        if (response.success){
+            message.success("请求成功")
+            memaryUser.user = response.data
+            storeage.saveUser(response.data)
+            this.props.history.replace("/")
+        } else {
+            message.error(response.data)
+        }
+
     };
 
     aa = ()=>{
@@ -33,6 +49,11 @@ export default class Login extends Component {
 
 
     render() {
+
+        if (memaryUser.user &&  memaryUser.user.id){
+            return <Redirect to='/'/>
+        }
+
         return (
             <div className='login'>
                 <header className='login-header'>
@@ -63,6 +84,7 @@ export default class Login extends Component {
                         </Form.Item>
                         <Form.Item
                             name="password"
+                            validateFirst="true"
                             rules={[
                                 { required: true, whitespace: true, message: '请输入密码' },
                                 {validator: this.validatePwd}
@@ -78,7 +100,7 @@ export default class Login extends Component {
                             <Form.Item name="remember" valuePropName="checked" noStyle>
                                 <Checkbox >记住账号</Checkbox>
                             </Form.Item>
-                            <a className="login-form-forgot" href="">
+                            <a className="login-form-forgot" href="#">
                                 忘记密码
                             </a>
                         </Form.Item>
@@ -87,7 +109,7 @@ export default class Login extends Component {
                             <Button type="primary" htmlType="submit" className="login-form-button" >
                                 登录
                             </Button>
-                            或者 <a href="">立即注册</a>
+                            或者 <a href="#">立即注册</a>
                         </Form.Item>
                     </Form>
                 </div>
