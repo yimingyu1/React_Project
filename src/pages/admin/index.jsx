@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Layout, Menu } from 'antd'
+import { Layout } from 'antd'
 import {Switch, Route, Redirect} from 'react-router-dom'
 import memoryUtil from '../../utils/memoryUtils'
 import Header from '../../components/header'
@@ -31,7 +31,7 @@ export default class Admin extends Component {
                 </Sider>
                 <Layout>
                     <Header className="site-layout-sub-header-background" style={{ padding: 0 }} >header</Header>
-                    <Content style={{ backgroundColor: 'white' }}>
+                    <Content style={{margin: '20px', backgroundColor: '#fff' }}>
 
                             <Switch>
                                 <Route path='/user' component={User}/>

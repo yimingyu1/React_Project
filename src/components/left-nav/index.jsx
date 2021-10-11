@@ -18,7 +18,15 @@ class LeftNav extends Component {
                         </Menu.Item>
                 )
             } else {
+                const citem = item.children.find((citem) => {
+                   return this.path === citem.key
+                })
+                if (citem){
+                    this.OpenKey = item.key
+                }
+                console.log(this.OpenKey);
                 return (
+                    
                     <SubMenu key={item.key} icon={item.icon} title={item.title}>
                         {
                             // item.children.map((childItem => {
@@ -27,9 +35,8 @@ class LeftNav extends Component {
                             //             <Link to={childItem.key}>{childItem.title}</Link>
                             //         </Menu.Item>
                             //     )
-                            // }))
+                            // })
                             this.getMenuNodes(item.children)
-                            this.
                         }
                     </SubMenu>
                 )
@@ -39,12 +46,15 @@ class LeftNav extends Component {
 
     constructor(props){
         super(props)
+        // debugger
+        this.path = this.props.location.pathname
         this.MenuNodes = this.getMenuNodes(menuList)
+       
     }
 
     render() {
         
-        const path = this.props.location.pathname
+        this.path = this.props.location.pathname
 
         return (
             <div>
@@ -56,8 +66,8 @@ class LeftNav extends Component {
                 </div>
                 <div>
                     <Menu
-                        selectedKeys={[path]}
-                        defaultOpenKeys={['/productSet']}
+                        selectedKeys={[this.path]}
+                        defaultOpenKeys ={[this.OpenKey]}
                         mode="inline"
                         theme="dark"
                     >
