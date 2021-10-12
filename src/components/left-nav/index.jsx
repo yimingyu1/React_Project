@@ -18,6 +18,7 @@ class LeftNav extends Component {
                         </Menu.Item>
                 )
             } else {
+
                 const citem = item.children.find(citem => citem.key === this.path)
                 console.log(this.path);
                 if (citem){
@@ -25,6 +26,7 @@ class LeftNav extends Component {
                 }
                 console.log(this.OpenKey);
                 return (
+                    
                     <SubMenu key={item.key} icon={item.icon} title={item.title}>
                         {
                             this.getMenuNodes(item.children)
@@ -40,11 +42,12 @@ class LeftNav extends Component {
         super(props)
         this.path = this.props.location.pathname
         this.MenuNodes = this.getMenuNodes(menuList)
+       
     }
 
     render() {
         
-        const path = this.props.location.pathname
+        this.path = this.props.location.pathname
 
         return (
             <div>

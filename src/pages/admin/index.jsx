@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Layout, Menu } from 'antd'
+import { Layout } from 'antd'
 import {Switch, Route, Redirect} from 'react-router-dom'
 import memoryUtil from '../../utils/memoryUtils'
 import Header from '../../components/header'

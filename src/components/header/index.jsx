@@ -91,6 +91,7 @@ class Header extends Component {
                     <div className="header-bottom-left">{this.title}</div>
                     <div className="header-bottom-right">{currentDate}<img src={dayPictureUrl} alt="qing" />{weather}</div>
                 </div>
+
             </div>
         )
     }

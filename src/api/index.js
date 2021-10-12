@@ -1,7 +1,8 @@
 import myreqeust from './MyRequest'
 import {message} from 'antd'
 import jsonp from 'jsonp'
-
+import jsonp from 'jsonp'
+import {message} from 'antd'
 
 // 登录
 export function reqLogin(userName, userPwd){

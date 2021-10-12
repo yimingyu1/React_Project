@@ -95,7 +95,7 @@ export default class Login extends Component {
                             <Form.Item name="remember" valuePropName="checked" noStyle>
                                 <Checkbox >记住账号</Checkbox>
                             </Form.Item>
-                            <a className="login-form-forgot" href="">
+                            <a className="login-form-forgot" href="https://www.baidu.com">
                                 忘记密码
                             </a>
                         </Form.Item>
@@ -104,7 +104,7 @@ export default class Login extends Component {
                             <Button type="primary" htmlType="submit" className="login-form-button" >
                                 登录
                             </Button>
-                            或者 <a href="">立即注册</a>
+                            或者 <a href="https://www.baidu.com">立即注册</a>
                         </Form.Item>
                     </Form>
                 </div>

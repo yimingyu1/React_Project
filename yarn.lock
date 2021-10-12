@@ -6973,7 +6973,7 @@ jsonfile@^6.0.1:
 
 jsonp@^0.2.1:
   version "0.2.1"
-  resolved "http://r.npm.sankuai.com/jsonp/download/jsonp-0.2.1.tgz#a65b4fa0f10bda719a05441ea7b94c55f3e15bae"
+  resolved "https://registry.npm.taobao.org/jsonp/download/jsonp-0.2.1.tgz#a65b4fa0f10bda719a05441ea7b94c55f3e15bae"
   integrity sha1-pltPoPEL2nGaBUQep7lMVfPhW64=
   dependencies:
     debug "^2.1.3"
