@@ -21,7 +21,7 @@ export default class Login extends Component {
             const user = response.data
             memoryUtil.user = user
             storageUtil.saveUser(user)
-            this.props.history.replace('/')
+            this.props.history.replace('/home')
         } else {
             message.error(response.errMessage)
         }
