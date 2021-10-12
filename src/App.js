@@ -9,7 +9,6 @@ export default class App extends Component {
 
     constructor(props){
         super(props)
-        this.aaa = 11
     }
     
     render() {
@@ -17,9 +16,9 @@ export default class App extends Component {
         return (
                 <BrowserRouter>
                     <Switch>
-                        <Route path='/login' component={Login}/>
-                        <Route path='/' component={Admin}/>
-                        <Redirect to='/login' />
+                        <Route  path='/login' component={Login}/>
+                        <Route  path='/' component={Admin}/>
+                    
                     </Switch>
                 </BrowserRouter>
         )

@@ -31,9 +31,10 @@ export default class Admin extends Component {
                 </Sider>
                 <Layout>
                     <Header className="site-layout-sub-header-background" style={{ padding: 0 }} >header</Header>
-                    <Content style={{ backgroundColor: 'white' }}>
+                    <Content style={{ backgroundColor: 'white', margin: '20px' }}>
 
                             <Switch>
+                                <Redirect exact from='/' to='/home'></Redirect>
                                 <Route path='/user' component={User}/>
                                 <Route path='/home' component={Home}/>
                                 <Route path='/role' component={Role}/>
