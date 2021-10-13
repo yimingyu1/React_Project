@@ -1,7 +1,7 @@
 import axios from 'axios'
 import {message} from 'antd'
 
-// const host = "http://localhost:8899//admin/user"
+// const host = "http://localhost:8899/admin/user"
 
 export default function myreqeust(url, data={}, method="GET"){
     // url = host + url

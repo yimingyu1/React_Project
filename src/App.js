@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { BrowserRouter, Route, Switch, Redirect} from 'react-router-dom'
+import { BrowserRouter, Route, Switch} from 'react-router-dom'
 import Admin from './pages/admin'
 import Login from './pages/login'
 /**
@@ -7,9 +7,6 @@ import Login from './pages/login'
  */
 export default class App extends Component {
 
-    constructor(props){
-        super(props)
-    }
     
     render() {
         console.log('app', this);
