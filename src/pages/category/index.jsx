@@ -90,6 +90,7 @@ export default class Category extends Component {
                 <Table 
                 dataSource={categorys} 
                 columns={this.columns} 
+                asdfasdfasdf
                 bordered
                 rowKey='id' 
                 loading={loading}
