@@ -54,6 +54,30 @@ export default class Category extends Component {
         
     }
 
+    pageChange = async (page, pageSize)=>{
+        console.log(page, pageSize);
+        this.loadPage(page, pageSize)
+    }
+
+    loadPage = async (page, pageSize, parent=0, type=1) => {
+        this.setState({loading: true})
+        let result = {}
+        if (parent === 0){
+            result = await reqCategoryByType(type, (page -1)*pageSize, pageSize)
+        } else {
+            result = await reqCategoryByParentId(type, parent, (page -1)*pageSize, pageSize)
+        }
+        this.setState({loading: false})
+        if (result.success === true){
+            const categorys = result.data
+            this.total = result.paging.total
+            this.setState({categorys})
+            message.success('获取列表信息成功')
+        } else {
+            message.error('获取列表信息失败')
+        }
+    }
+
     componentDidMount() {
         this.getCategorys(1)
     }
@@ -69,10 +93,14 @@ export default class Category extends Component {
                 bordered
                 rowKey='id' 
                 loading={loading}
-                rowSelection = {{scrollToFirstRowOnChange: true}}
+                scroll={{y: 'calc(100vh - 400px)'}}
                 pagination={{
-                    defaultCurrent: 1,
-                    total : this.total
+                    pageSizeOptions: [10, 20, 30, 50],
+                    responsive: true,
+                    showSizeChanger: true,
+                    total : this.total,
+                    onChange: this.pageChange,
+                    showTotal:(total)=>{ return `共${total}条`},
                 }} 
                  ></Table>
             </Card>
