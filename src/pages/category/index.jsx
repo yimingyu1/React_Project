@@ -181,6 +181,7 @@ export default class Category extends Component {
                 >
                    <CategoryUpdateForm category={ this.category } getCategoryName = {(form) => this.form = form}/>
                 </Modal>
+
             </Card>
         )
     }
