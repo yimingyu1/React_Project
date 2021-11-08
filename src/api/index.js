@@ -43,6 +43,6 @@ export const reqAddCategory = (parentId, categoryType, categoryName) =>{
 }
 
 // 更新分类
-export const reqUpdateCategory = (id, parentId, categoryType, categoryName) =>{
-    return myreqeust('/category/getCategoryByParentId.json', {id, parentId, categoryType, categoryName}, "POST")
+export const reqUpdateCategory = (id, categoryName) =>{
+    return myreqeust('/category/updateName.json', {id, categoryName}, "POST")
 }
