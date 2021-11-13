@@ -19,6 +19,7 @@ export default class Category extends Component {
         showState:0,
         page: 1,
         pageSize: 10,
+        homePage: 1,
     }
 
     initColumns = () => {
@@ -50,15 +51,15 @@ export default class Category extends Component {
     getSubCategory = (category) => {
         console.log(category);
         const { id, categoryName, categoryType } = category
-        this.setState({ categoryName, ParentId: id, categoryType: categoryType + 1 }, () => {
+        this.setState({ categoryName, ParentId: id, categoryType: categoryType + 1, homePage: this.state.page}, () => {
             this.loadPage(1, 10)
         })
     }
 
     goBack = () => {
-        const { categoryType } = this.state
+        const { categoryType, homePage } = this.state
         this.setState({ categoryName: "", ParentId: 0, categoryType: categoryType - 1 }, () => {
-            this.loadPage(1, 10)
+            this.loadPage(homePage, 10)
         })
     }
 
@@ -117,19 +118,50 @@ export default class Category extends Component {
         this.setState({showState:2})
     }
 
+    addCategory =async (form)=>{
+        const parentId = form.current.getFieldValue("parentId")
+        const categoryName = form.current.getFieldValue("categoryName")
+        const categoryType = parentId === 0 ? "1" : "2"
+        const {page, pageSize} = this.state
+        console.log(parentId, categoryType, categoryName);
+        if (categoryName === undefined || categoryName.trim().length === 0){
+            message.error("分类名不能为空")
+        } else {
+            const result = await reqAddCategory(parentId, categoryType, categoryName)
+            if (result.success === true){
+                this.pageChange(page, pageSize)
+                message.success('添加分类成功')
+                this.setState({showState: 0})
+            } else {
+                message.error(result.errMessage)
+            }
+        }
+        
+    
+    }
+
     updateCategory =async (id, form)=>{
         console.log("update category");
         console.log(form.current.getFieldValue("categoryName"));
-        this.setState({showState: 0})
         const {page, pageSize} = this.state
         
         const result =  await reqUpdateCategory(id, form.current.getFieldValue("categoryName"))
         if (result.success === true){
             console.log(page, pageSize);
             this.pageChange(page, pageSize)
+            this.setState({showState: 0})
             message.success('更新列表信息成功')
         } else {
             message.error(result.errMessage)
+        }
+    }
+
+    getAllCategoryList = async ()=>{
+        const result = await reqCategoryByType(1, 0, 0, true)
+        if (result.success === true){
+            this.categoryList = result.data || []
+        } else {
+            message.error("获取一级分类列表失败")
         }
     }
 
@@ -140,11 +172,12 @@ export default class Category extends Component {
         const { categoryType } = this.state
         console.log(categoryType);
         this.getCategorys(categoryType)
+        this.getAllCategoryList()
     }
 
     render() {
 
-        const { categorys, loading, categoryName, categoryType, showState } = this.state
+        const { categorys, loading, categoryName, categoryType, showState, ParentId } = this.state
 
         const title = categoryType === 1 ? '一级分类列表' : <span>
             <LinkButton onClick={this.goBack}>一级分类列表</LinkButton>
@@ -170,8 +203,11 @@ export default class Category extends Component {
                         showTotal: (total) => { return `共${total}条` },
                     }}
                 ></Table>
-                <Modal title="添加分类" visible={showState === 1} onOk={""} onCancel={this.handleCanel}>
-                    <CategoryForm categorys={this.categorys}/>
+                <Modal title="添加分类" visible={showState === 1} onOk={()=> this.addCategory(this.addCategoryForm)} onCancel={this.handleCanel}>
+                    <CategoryForm 
+                    parentId ={ParentId}
+                    allCategroyList={this.categoryList}
+                    getCategoryInfo ={(form) => this.addCategoryForm = form}/>
                 </Modal>
                 <Modal 
                 title="更新分类" 

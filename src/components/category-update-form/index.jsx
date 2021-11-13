@@ -15,8 +15,6 @@ export default class CategoryUpdateForm extends Component {
 
     render() {
         const {categoryName} = this.props.category || {}
-        console.log(this.form);
-        console.log(this.form.current)
         setTimeout(() => {
             this.form.current.setFieldsValue({
                 categoryName

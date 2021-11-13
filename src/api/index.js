@@ -27,9 +27,10 @@ export const reqWeather = () => {
 
 // category
 // 获取分类
-export const reqCategoryByType = (categoryType, offset, limit) =>{
-    return myreqeust('/category/getCategoryByType.json', {categoryType, offset, limit})
+export const reqCategoryByType = (categoryType, offset, limit, isAllCategory=false) =>{
+    return myreqeust('/category/getCategoryByType.json', {categoryType, offset, limit, isAllCategory})
 }
+
 
 // 获取子分类
 
@@ -39,7 +40,7 @@ export const reqCategoryByParentId = (categoryType, categoryParentId, offset, li
 
 // 添加分类
 export const reqAddCategory = (parentId, categoryType, categoryName) =>{
-    return myreqeust('/category/getCategoryByParentId.json', {parentId, categoryType, categoryName}, "POST")
+    return myreqeust('/category/add.json', {parentId, categoryType, categoryName}, "POST")
 }
 
 // 更新分类
