@@ -178,6 +178,7 @@ export default class Category extends Component {
                 visible={showState ===2} 
                 onOk={()=> this.updateCategory(this.category.id, this.form)} 
                 onCancel={this.handleCanel}
+                forceRender={true}
                 >
                    <CategoryUpdateForm category={ this.category } getCategoryName = {(form) => this.form = form}/>
                 </Modal>
