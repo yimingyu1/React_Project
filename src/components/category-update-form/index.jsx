@@ -16,9 +16,11 @@ export default class CategoryUpdateForm extends Component {
     render() {
         const {categoryName} = this.props.category || {}
         setTimeout(() => {
+            if (this.form.current !== null){
             this.form.current.setFieldsValue({
                 categoryName
             })
+        }
         }, 100);
         
        
@@ -29,6 +31,11 @@ export default class CategoryUpdateForm extends Component {
                     required='true'
                     label='分类名'
                     name='categoryName'
+                    rules={
+                        [
+                            {required: true, message: "分类名不能为空"}
+                        ]
+                    }
                     >
                         <Input placeholder={categoryName}></Input>
                     </Form.Item>

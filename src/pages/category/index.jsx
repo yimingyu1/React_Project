@@ -119,17 +119,22 @@ export default class Category extends Component {
     }
 
     addCategory =async (form)=>{
-        const parentId = form.current.getFieldValue("parentId")
-        const categoryName = form.current.getFieldValue("categoryName")
-        const categoryType = parentId === 0 ? "1" : "2"
-        const {page, pageSize} = this.state
-        console.log(parentId, categoryType, categoryName);
-        if (categoryName === undefined || categoryName.trim().length === 0){
+        const {ParentId, page, pageSize} = this.state
+        const parentIdParam = form.current.getFieldValue("parentId")
+        const categoryNameParam = form.current.getFieldValue("categoryName")
+        const categoryTypeParam = parentIdParam === 0 ? "1" : "2"
+        console.log(parentIdParam, categoryTypeParam, categoryNameParam);
+        if (categoryNameParam === undefined || categoryNameParam.trim().length === 0){
             message.error("分类名不能为空")
         } else {
-            const result = await reqAddCategory(parentId, categoryType, categoryName)
+            const result = await reqAddCategory(parentIdParam, categoryTypeParam, categoryNameParam)
             if (result.success === true){
-                this.pageChange(page, pageSize)
+                if (ParentId === parentIdParam && page === Math.ceil(this.total / pageSize)){
+                    this.pageChange(page, pageSize)
+                }
+                if (ParentId === 0){
+                    this.getAllCategoryList()
+                }
                 message.success('添加分类成功')
                 this.setState({showState: 0})
             } else {
@@ -144,7 +149,8 @@ export default class Category extends Component {
         console.log("update category");
         console.log(form.current.getFieldValue("categoryName"));
         const {page, pageSize} = this.state
-        
+        try{
+        await this.form.current.validateFields(['categoryName'])
         const result =  await reqUpdateCategory(id, form.current.getFieldValue("categoryName"))
         if (result.success === true){
             console.log(page, pageSize);
@@ -154,6 +160,9 @@ export default class Category extends Component {
         } else {
             message.error(result.errMessage)
         }
+    }catch(e){
+        console.log(e);
+    }
     }
 
     getAllCategoryList = async ()=>{
@@ -164,9 +173,6 @@ export default class Category extends Component {
             message.error("获取一级分类列表失败")
         }
     }
-
-
-
 
     componentDidMount() {
         const { categoryType } = this.state

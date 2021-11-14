@@ -29,8 +29,9 @@ export default class CategoryForm extends Component {
         setTimeout(() => {
             this.form.current.setFieldsValue({
                 parentId
+
             })
-            
+            this.form.current.resetFields(['categoryName'])
         }, 100);
         return (
             <div>
@@ -59,7 +60,9 @@ export default class CategoryForm extends Component {
                         ]
                     }
                     >
-                        <Input placeholder="请输入分类名称"></Input>
+                        <Input 
+                        placeholder="请输入分类名称" 
+                        ></Input>
                     </Form.Item>
                 </Form>
             </div>
