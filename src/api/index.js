@@ -47,3 +47,14 @@ export const reqAddCategory = (parentId, categoryType, categoryName) =>{
 export const reqUpdateCategory = (id, categoryName) =>{
     return myreqeust('/category/updateName.json', {id, categoryName}, "POST")
 }
+
+//product
+//获取商品列表
+export const reqGetProjectList = (productName, productDesc, offset, limit) =>{
+    return myreqeust('/product/getProductList.json', {productName, productDesc, offset, limit}, "GET")
+}
+
+//更新商品状态
+export const reqUpdateProjectState = (id, status) =>{
+    return myreqeust('/product/updateStatus.json', {id, status}, "POST")
+}
